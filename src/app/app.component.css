@@ -1,3 +1,10 @@
 .nodeFrame {
     border: 1px dashed red;
 }
+
+.highlightedNode {
+    background-color: green;
+    color: #ffffff;
+    padding: 1px 2px;
+    border-radius: 3px;
+}

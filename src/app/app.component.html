@@ -1,10 +1,13 @@
 <p-tree
   [value]="statsTree"
-  selectionMode="multiple"
-  [(selection)]="selectedItems"
-  (onNodeSelect)="nodeSelect($event)">
+  selectionMode="single"
+  [(selection)]="selectedItem"
+  (onNodeSelect)="nodeSelect($event)"
+  (onNodeUnselect)="nodeUnselect($event)">
   <ng-template let-node pTemplate="default">
-    <span type="text" style="width:100%" [nodeFrame]="isSelected(node)">
+    <span
+      [class.highlightedNode]="isHighlighted(node)"
+      type="text" style="width:100%" [nodeFrame]="isSelected(node)">
       {{ node.label }}
     </span>
   </ng-template>

@@ -10,7 +10,8 @@ import { TreeNode } from 'primeng/primeng';
 export class AppComponent implements OnInit {
   title = 'app';
   statsTree: TreeNode[];
-  selectedItems: TreeNode[];
+  selectedItem: TreeNode;
+  highlightedItems: TreeNode[] = [];
 
   constructor(private treeService: TreeService) {}
 
@@ -19,12 +20,27 @@ export class AppComponent implements OnInit {
   }
 
   nodeSelect(event) {
+    this.highlightedItems = [];
     if (!event.node.children)
-      this.selectedItems.push(event.node.parent);
+      this.selectDescendants(event.node);
+  }
+
+  selectDescendants(node) {
+    if (node.parent) {
+      this.highlightedItems.push(node.parent);
+      this.selectDescendants(node.parent);
+    }
+  }
+
+  nodeUnselect(event) {
+    this.highlightedItems = [];
   }
 
   isSelected(node) {
-    if (!this.selectedItems) return false;
-    return this.selectedItems.includes(node);
+    return this.selectedItem === node;
+  }
+
+  isHighlighted(node) {
+    return this.highlightedItems.includes(node);
   }
 }
